@@ -1,0 +1,16 @@
+[project]
+name = "deepfake"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aws-cdk-lib==2.214.0",
+    "constructs>=10.0.0,<11.0.0",
+    "python-dotenv>=1.2.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==6.2.5",
+]
