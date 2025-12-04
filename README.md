@@ -8,9 +8,7 @@
 [![CDK](https://img.shields.io/badge/AWS%20CDK-v2-ff9900)](https://aws.amazon.com/cdk)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Demo Link: https://doe96w0vtmfnu.cloudfront.net
 
-## What it does
 
 ## Table of Contents
 
@@ -31,6 +29,8 @@ Demo Link: https://doe96w0vtmfnu.cloudfront.net
 ## Overview
 
 The DeepFake Detection System is an enterprise-grade application that leverages NVIDIA's state-of-the-art AI detection API to identify artificially generated images. The system provides real-time analysis with confidence scores, bounding box information, and comprehensive monitoring capabilities.
+
+Demo Link: https://d2c3fs029gud82.cloudfront.net
 
 <img src=".docs/frontend.png" alt="Frontend Application" width="600" style="display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
 
