@@ -8,14 +8,11 @@
 [![CDK](https://img.shields.io/badge/AWS%20CDK-v2-ff9900)](https://aws.amazon.com/cdk)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-
-
 ## Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
 - [Architecture](#architecture)
-- [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
 - [Deployment](#deployment)
 - [Monitoring](#monitoring)
@@ -30,7 +27,7 @@
 
 The DeepFake Detection System is an enterprise-grade application that leverages NVIDIA's state-of-the-art AI detection API to identify artificially generated images. The system provides real-time analysis with confidence scores, bounding box information, and comprehensive monitoring capabilities.
 
-Demo Link: https://d2c3fs029gud82.cloudfront.net
+**Live Demo**: [https://d2c3fs029gud82.cloudfront.net](https://d2c3fs029gud82.cloudfront.net)
 
 <img src=".docs/frontend.png" alt="Frontend Application" width="600" style="display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
 
@@ -426,7 +423,7 @@ The deployment requires the following AWS service permissions:
 1. **Check Logs**: Review CloudWatch logs for detailed error information
 2. **Review Deployment Output**: Check `deployment-output.txt` for deployment errors
 3. **Verify Configuration**: Ensure all environment variables and secrets are correctly configured
-4. **Test Components**: Use the load testing script to verify API functionality
+4. **Test Components**: Use manual testing procedures to verify API functionality
 
 ### Support Resources
 
@@ -462,7 +459,6 @@ We welcome contributions! Please follow these guidelines:
 
 ## License
 
-<<<<<<< HEAD
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Author
@@ -475,6 +471,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Note**: This application is for educational and research purposes. Always verify detection results with additional validation methods for critical applications.
-=======
-MIT
->>>>>>> bffb20b1123f6f1a6a3818ee0615460e142b9189
