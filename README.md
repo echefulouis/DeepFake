@@ -8,6 +8,10 @@
 [![CDK](https://img.shields.io/badge/AWS%20CDK-v2-ff9900)](https://aws.amazon.com/cdk)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+Demo Link: https://doe96w0vtmfnu.cloudfront.net
+
+## What it does
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -458,6 +462,7 @@ We welcome contributions! Please follow these guidelines:
 
 ## License
 
+<<<<<<< HEAD
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Author
@@ -470,3 +475,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Note**: This application is for educational and research purposes. Always verify detection results with additional validation methods for critical applications.
+=======
+MIT
+>>>>>>> bffb20b1123f6f1a6a3818ee0615460e142b9189
