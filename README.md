@@ -29,7 +29,9 @@ The DeepFake Detection System is an enterprise-grade application that leverages 
 
 **Live Demo**: [https://d2c3fs029gud82.cloudfront.net](https://d2c3fs029gud82.cloudfront.net)
 
-<img src=".docs/frontend.png" alt="Frontend Application" width="600" style="display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+<div align="center">
+  <img src=".docs/frontend.png" alt="Frontend Application" width="600" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+</div>
 
 ### Key Capabilities
 
@@ -61,7 +63,9 @@ The DeepFake Detection System is an enterprise-grade application that leverages 
 
 The application implements a modern serverless microservices architecture on AWS, designed for scalability, reliability, and operational excellence.
 
-![Architecture Diagram](.docs/archi.png)
+<div align="center">
+  <img src=".docs/archi.png" alt="Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+</div>
 
 ### Architecture Overview
 
