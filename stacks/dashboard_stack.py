@@ -31,7 +31,7 @@ class DashboardStack(Stack):
                 "FunctionName": upload_lambda.function_name
             },
             statistic="Sum",
-            period=Duration.minutes(3),
+            period=Duration.minutes(5),  # Standardized to 5 minutes for consistency
             label="Lambda Invocations"
         )
 
@@ -66,6 +66,70 @@ class DashboardStack(Stack):
             statistic="Sum",
             period=Duration.minutes(5),
             label="Lambda Throttles"
+        )
+
+        # Cold Start Metrics using Lambda Insights
+        # Lambda Insights provides enhanced metrics including cold start tracking
+        # These metrics are more reliable and comprehensive than standard InitDuration
+        lambda_insights_init_duration = cloudwatch.Metric(
+            namespace="LambdaInsights",
+            metric_name="init_duration",
+            dimensions_map={
+                "function_name": upload_lambda.function_name
+            },
+            statistic="Average",
+            period=Duration.minutes(5),
+            label="Cold Start Init Duration (ms) - Average (Lambda Insights)"
+        )
+
+        # Maximum InitDuration from Lambda Insights
+        lambda_insights_init_duration_max = cloudwatch.Metric(
+            namespace="LambdaInsights",
+            metric_name="init_duration",
+            dimensions_map={
+                "function_name": upload_lambda.function_name
+            },
+            statistic="Maximum",
+            period=Duration.minutes(5),
+            label="Cold Start Init Duration (ms) - Maximum (Lambda Insights)"
+        )
+
+        # Minimum InitDuration from Lambda Insights
+        lambda_insights_init_duration_min = cloudwatch.Metric(
+            namespace="LambdaInsights",
+            metric_name="init_duration",
+            dimensions_map={
+                "function_name": upload_lambda.function_name
+            },
+            statistic="Minimum",
+            period=Duration.minutes(5),
+            label="Cold Start Init Duration (ms) - Minimum (Lambda Insights)"
+        )
+
+        # Cold Start Count from Lambda Insights
+        # Use SampleCount of init_duration - each sample represents one cold start
+        # Lambda Insights doesn't have a direct cold_start_count metric
+        lambda_insights_cold_start_count = cloudwatch.Metric(
+            namespace="LambdaInsights",
+            metric_name="init_duration",
+            dimensions_map={
+                "function_name": upload_lambda.function_name
+            },
+            statistic="SampleCount",  # Count samples = count cold starts
+            period=Duration.minutes(5),
+            label="Cold Start Count (Lambda Insights)"
+        )
+
+        # Concurrent Executions - helps identify when new containers are created
+        lambda_concurrent = cloudwatch.Metric(
+            namespace="AWS/Lambda",
+            metric_name="ConcurrentExecutions",
+            dimensions_map={
+                "FunctionName": upload_lambda.function_name
+            },
+            statistic="Maximum",
+            period=Duration.minutes(5),
+            label="Concurrent Executions"
         )
 
         # API Gateway Metrics - Use API ID for REST APIs
@@ -138,6 +202,47 @@ class DashboardStack(Stack):
                 title="Lambda Throttles",
                 left=[lambda_throttles],
                 width=12
+            ),
+            # Cold Start Metrics from Lambda Insights - Duration metrics
+            cloudwatch.GraphWidget(
+                title="Lambda Cold Starts - Init Duration (Average, Min, Max) [Lambda Insights]",
+                left=[lambda_insights_init_duration, lambda_insights_init_duration_max, lambda_insights_init_duration_min],
+                width=12,
+                left_y_axis=cloudwatch.YAxisProps(
+                    label="Duration (ms)",
+                    show_units=False
+                )
+            ),
+            # Cold Start Count from Lambda Insights
+            cloudwatch.GraphWidget(
+                title="Cold Start Count [Lambda Insights]",
+                left=[lambda_insights_cold_start_count],
+                width=12,
+                left_y_axis=cloudwatch.YAxisProps(
+                    label="Count",
+                    show_units=False
+                )
+            ),
+            cloudwatch.GraphWidget(
+                title="Lambda Concurrent Executions",
+                left=[lambda_concurrent],
+                width=12
+            ),
+            # Total Lambda Invocations single value widget
+            # Shows sum of invocations over the last 1 hour
+            cloudwatch.SingleValueWidget(
+                title="Total Lambda Invocations (Last 1 Hour)",
+                metrics=[cloudwatch.Metric(
+                    namespace="AWS/Lambda",
+                    metric_name="Invocations",
+                    dimensions_map={
+                        "FunctionName": upload_lambda.function_name
+                    },
+                    statistic="Sum",
+                    period=Duration.hours(1),  # Aggregates invocations over 1 hour period
+                    label="Total Invocations"
+                )],
+                width=6
             ),
             cloudwatch.GraphWidget(
                 title="API Gateway Requests",

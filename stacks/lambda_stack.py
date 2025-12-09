@@ -38,20 +38,28 @@ class LambdaStack(Stack):
             retention=logs.RetentionDays.ONE_WEEK
         )
         
+        # Lambda Insights Layer - for enhanced monitoring and cold start tracking
+        # Using version 21 which supports Python 3.12
+        # ARN format: arn:aws:lambda:<region>:580247275435:layer:LambdaInsightsExtension:<version>
+        lambda_insights_layer = _lambda.LayerVersion.from_layer_version_arn(
+            self, 'LambdaInsightsLayer',
+            layer_version_arn=f'arn:aws:lambda:{self.region}:580247275435:layer:LambdaInsightsExtension:21'
+        )
+        
         self.upload_lambda = _lambda.Function(
             self, 'upload_lambda',
             function_name="deepfake_upload_lambda_function",
             runtime=_lambda.Runtime.PYTHON_3_12,
             code=_lambda.Code.from_asset('lambda'),
             handler='upload.lambda_handler',
-            layers=[layer, request_layer],
+            layers=[layer, request_layer, lambda_insights_layer],  # Add Lambda Insights layer
             tracing=_lambda.Tracing.ACTIVE,
             timeout=Duration.seconds(30),
             log_group=upload_log_group,
             environment={
                 'BUCKET_NAME': image_bucket.bucket_name,
                 'API_SECRET_ARN': api_secret.secret_arn,
-                "POWERTOOLS_SERVICE_NAME": "recieptApp"
+                "POWERTOOLS_SERVICE_NAME": "DeepFakeApp"
             }
             
         )
@@ -75,7 +83,8 @@ class LambdaStack(Stack):
             runtime=_lambda.Runtime.PYTHON_3_12,
             code=_lambda.Code.from_asset('lambda'),
             handler='dashboard.lambda_handler',
-            timeout=Duration.seconds(10),
+            timeout=Duration.minutes(10),
+            memory_size=512,
             log_group=dashboard_log_group,
             environment={
                 "REGION": self.region,
